@@ -12,7 +12,7 @@ COPY bower.json /app/
 RUN npm run bowerInstallDocker
 
 
-FROM node
+FROM node AS mehul
 
 MAINTAINER Gustavo Apolinario <gustavo.guss@gmail.com>
 
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get upgrade -y \
 RUN mkdir /app
 WORKDIR /app
 
-COPY /app/src/public/static/bower_components/ /app/src/public/static/bower_components/
+COPY --from=mehul /app/src/public/static/bower_components/ /app/src/public/static/bower_components/
 
 COPY package.json /app/
 RUN npm install
